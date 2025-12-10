@@ -1,0 +1,24 @@
+[workspace]
+members = [
+    "lambdas/http",
+    "lambdas/presigned-cleanup",
+    "lambdas/upload-completion",
+]
+
+[workspace.dependencies]
+docbox-core = "0.7.0"
+docbox-database = "0.6.0"
+docbox-processing = "0.2.0"
+docbox-search = "0.6.0"
+docbox-secrets = "0.3.0"
+docbox-storage = "0.4.0"
+docbox-web-scraper = "0.4.0"
+
+# Error handling
+thiserror = "=2.0.17"
+
+# Date & time
+chrono = { version = "=0.4.42", features = ["serde"] }
+
+# AWS configuration
+aws-config = { version = "=1.8.10", features = ["behavior-version-latest"] }
