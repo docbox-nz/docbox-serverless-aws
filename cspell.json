@@ -7,6 +7,7 @@
     "thiserror",
     "chrono",
     "dotenvy",
-    "dotenv"
+    "dotenv",
+    "onlyoffice"
   ]
 }
