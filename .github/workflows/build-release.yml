@@ -86,7 +86,7 @@ jobs:
                   name: docbox-upload-completion-lambda-amd64.zip
                   path: docbox-upload-completion-lambda-amd64.zip
 
-    build:
+    build-arm64:
         name: Build ARM64
         runs-on: ubuntu-latest
         steps:
@@ -161,7 +161,7 @@ jobs:
     release:
         name: Create Release
         runs-on: ubuntu-latest
-        needs: [build]
+        needs: [build-amd64, build-arm64]
 
         steps:
             # Checkout the repo
