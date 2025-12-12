@@ -31,4 +31,5 @@ RUN cp -r /usr/share/fonts/* /bundle/opt/fonts/ && \
 RUN chmod -R 755 /bundle/opt
 
 # Zip up the bundle as the layer
-RUN zip -r /poppler-lambda-layer.zip /bundle
+RUN cd /bundle/opt && \
+    zip -r /tmp/poppler-lambda-layer.zip .

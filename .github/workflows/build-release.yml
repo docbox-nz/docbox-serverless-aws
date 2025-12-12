@@ -63,7 +63,11 @@ jobs:
                   mkdir /tmp/processing-lambda
                   unzip docbox-upload-completion-lambda.zip -d /tmp/processing-lambda
                   unzip poppler-lambda-layer.zip -d /tmp/processing-lambda
-                  zip -r docbox-upload-completion-lambda-amd64.zip /tmp/processing-lambda
+                  (
+                    cd /tmp/processing-lambda
+                    zip -r /tmp/docbox-upload-completion-lambda-amd64.zip .
+                  )
+                  mv /tmp/docbox-upload-completion-lambda-amd64.zip .
               shell: bash
 
             # Upload the built artifacts
@@ -140,7 +144,11 @@ jobs:
                   mkdir /tmp/processing-lambda
                   unzip docbox-upload-completion-lambda.zip -d /tmp/processing-lambda
                   unzip poppler-lambda-layer.zip -d /tmp/processing-lambda
-                  zip -r docbox-upload-completion-lambda-arm64.zip /tmp/processing-lambda
+                  (
+                    cd /tmp/processing-lambda
+                    zip -r /tmp/docbox-upload-completion-lambda-arm64.zip .
+                  )
+                  mv /tmp/docbox-upload-completion-lambda-arm64.zip .
               shell: bash
 
             # Upload the built artifacts
