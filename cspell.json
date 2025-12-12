@@ -9,6 +9,7 @@
     "dotenvy",
     "dotenv",
     "onlyoffice",
-    "dtolnay"
+    "dtolnay",
+    "poppler"
   ]
 }

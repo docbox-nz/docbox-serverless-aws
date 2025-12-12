@@ -8,10 +8,6 @@ use docbox_core::{
     tenant::tenant_cache::TenantCache,
 };
 use docbox_database::{DatabasePoolCache, DatabasePoolCacheConfig};
-use docbox_processing::{
-    ProcessingLayer, ProcessingLayerConfig,
-    office::{OfficeConverter, OfficeConverterConfig, OfficeProcessingLayer},
-};
 use docbox_search::{SearchIndexFactory, SearchIndexFactoryConfig};
 use docbox_secrets::{SecretManager, SecretsManagerConfig};
 use docbox_storage::{StorageLayerFactory, StorageLayerFactoryConfig};
@@ -50,19 +46,6 @@ async fn app() -> Result<Router, Box<dyn std::error::Error + Send + Sync>> {
         Ok(value) => value.parse::<i32>()?,
         // Default max file size in bytes (100MB)
         Err(_) => 100 * 1000 * 1024,
-    };
-
-    // Create the converter
-    let converter_config = OfficeConverterConfig::from_env();
-    let converter = OfficeConverter::from_config(converter_config)?;
-
-    // Load the config for the processing layer
-    let processing_layer_config = ProcessingLayerConfig::from_env()?;
-
-    // Setup processing layer
-    let processing = ProcessingLayer {
-        office: OfficeProcessingLayer { converter },
-        config: processing_layer_config,
     };
 
     // Create website scraping service
@@ -116,7 +99,6 @@ async fn app() -> Result<Router, Box<dyn std::error::Error + Send + Sync>> {
         .layer(Extension(db_cache.clone()))
         .layer(Extension(website_meta_service))
         .layer(Extension(events))
-        .layer(Extension(processing))
         .layer(Extension(tenant_cache))
         .layer(Extension(MaxFileSizeBytes(max_file_size_bytes)))
         .layer(TraceLayer::new_for_http());

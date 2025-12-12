@@ -2,7 +2,7 @@
 
 use crate::{
     error::{HttpCommonError, HttpErrorResponse, HttpResult, HttpStatusResult},
-    middleware::tenant::{TenantDb, TenantParams, TenantSearch, TenantStorage},
+    middleware::tenant::{TenantDb, TenantParams, TenantSearch},
     models::admin::{TenantDocumentBoxesRequest, TenantDocumentBoxesResponse, TenantStatsResponse},
 };
 use axum::{Extension, Json, http::StatusCode};
@@ -242,26 +242,8 @@ pub async fn search_tenant(
     params(TenantParams)
 )]
 #[tracing::instrument(skip_all)]
-pub async fn reprocess_octet_stream_files_tenant(
-    TenantDb(_db): TenantDb,
-    TenantSearch(_search): TenantSearch,
-    TenantStorage(_storage): TenantStorage,
-    // Extension(processing): Extension<ProcessingLayer>,
-) -> HttpStatusResult {
-    // TODO: This is a heavy and long running operation, should be moved to client side only
-    // docbox_core::files::reprocess_octet_stream_files::reprocess_octet_stream_files(
-    //     &db,
-    //     &search,
-    //     &storage,
-    //     &processing,
-    // )
-    // .await
-    // .map_err(|error| {
-    //     tracing::error!(?error, "failed to reprocess octet-stream files");
-    //     HttpCommonError::ServerError
-    // })?;
-
-    Ok(StatusCode::NO_CONTENT)
+pub async fn reprocess_octet_stream_files_tenant() -> HttpStatusResult {
+    Err(HttpCommonError::Unsupported.into())
 }
 
 /// Rebuild search index
@@ -280,19 +262,8 @@ pub async fn reprocess_octet_stream_files_tenant(
     params(TenantParams)
 )]
 #[tracing::instrument(skip_all)]
-pub async fn rebuild_search_index_tenant(// TenantDb(db): TenantDb,
-    // TenantSearch(search): TenantSearch,
-    // TenantStorage(storage): TenantStorage,
-) -> HttpStatusResult {
-    // TODO: This is a heavy and long running operation, should be moved to client side only
-    // docbox_core::tenant::rebuild_tenant_index::rebuild_tenant_index(&db, &search, &storage)
-    //     .await
-    //     .map_err(|error| {
-    //         tracing::error!(?error, "failed to rebuilt tenant search index");
-    //         HttpCommonError::ServerError
-    //     })?;
-
-    Ok(StatusCode::NO_CONTENT)
+pub async fn rebuild_search_index_tenant() -> HttpStatusResult {
+    Err(HttpCommonError::Unsupported.into())
 }
 
 /// Flush database cache
